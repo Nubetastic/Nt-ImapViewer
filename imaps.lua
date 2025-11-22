@@ -7603,6 +7603,7 @@ local all_imaps_list = {
 
 local distancescale = 10
 local showingimaps = false
+local printImaps = false
 
 Citizen.CreateThread(function()
     while true do
@@ -7618,7 +7619,13 @@ Citizen.CreateThread(function()
                     DrawLine(v,location,distance,v.dec_hash.." , "..GetHashKey(tostring(v.dec_hash)))
                     --SetEntityCoords(PlayerPedId(), vector3(v.x,v.z,v.z)) -- you can teleport to each one if thats your cup of tea
                     showingimaps = true
+                    if printImaps then
+                        print(v.dec_hash)
+                    end
                 end
+            end
+            if printImaps then
+                printImaps = false
             end
             toggleimaps = false
         end
@@ -7643,6 +7650,7 @@ RegisterCommand('viewimaps',function(source, args)
     if args[1] ~= nil then
         distancescale = tonumber(args[1])
         toggleimaps = true
+        printImaps = true
 
     end
 end)
